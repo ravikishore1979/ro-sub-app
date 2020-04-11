@@ -3,5 +3,11 @@
 		"source": "/robe",
 		"target": "/",
 		"destination": "robackend_api"
-	}]
+	},
+	{
+		"source": "/roui",
+		"target": "/",
+		"destination": "robackend_api"
+	}
+	]
 }

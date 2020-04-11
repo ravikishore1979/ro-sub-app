@@ -3,12 +3,12 @@
 	"description": "RO Multitenant Business App - Router",
 	"version": "1.0.0",
 	"dependencies": {
-		"@sap/approuter": "~3.0.1"
+		"@sap/approuter": "~6.8.0"
 	},
 	"scripts": {
 		"start": "node node_modules/@sap/approuter/approuter.js"
 	},
 	"engines": {
-		"node": "9.x"
+		"node": "13.x"
 	}
 }

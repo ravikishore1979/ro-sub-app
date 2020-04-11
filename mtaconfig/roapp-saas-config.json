@@ -1,8 +1,8 @@
 {
-  "appId": "<xsappname>",
+  "appId": "ro-sub-app!t38002",
   "appUrls": {
-    "getDependencies" : "https://ro-sub-app-cf.cfapps.eu10.hana.ondemand.com/callback/v1.0/getAppDep",
-    "onSubscription" : "https://ro-sub-app-cf.cfapps.eu10.hana.ondemand.com/callback/v1.0/tenants/{tenantId}"
+    "getDependencies" : "https://p2001579154trial-dev-roapprouter.cfapps.eu10.hana.ondemand.com/robe/callback/v1.0/getAppDep",
+    "onSubscription" : "https://p2001579154trial-dev-roapprouter.cfapps.eu10.hana.ondemand.com/robe/callback/v1.0/tenants/{tenantId}"
   },
   "displayName" : "RO-Example",
   "description" : "RO Example for devOps",
