@@ -1,0 +1,39 @@
+{
+  "xsappname": "ro-sub-app",
+  "description": "Roles for ro-example xsuaa app",
+  "tenant-mode": "shared",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.dev_scope",
+      "description": "Developer scope"
+    },
+    {
+      "name": "$XSAPPNAME.qa_scope",
+      "description": "QA scope"
+    },
+    {
+      "name": "$XSAPPNAME.Callback",
+      "description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "dev",
+      "description": "Role for deveopers to develop",
+      "scope-references": [
+        "$XSAPPNAME.dev_scope"
+      ]
+    },
+    {
+      "name": "qa",
+      "description": "Role for QA for quality assurance",
+      "scope-references": [
+        "$XSAPPNAME.dev_scope",
+        "$XSAPPNAME.qa_scope"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+ID: ro-sub-app
+_schema-version: '2.1'
+description: A multi tenant application
+version: 0.0.1
+modules:
+  - name: roui
+    type: html5
+    path: roui
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: grunt
+    requires:
+      - name: uaa_roapp
+      - name: robackend_api
+        group: destinations
+        properties:
+          name: robackend_api
+          url: '~{backend_app_url}'
+          forwardAuthToken: true
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-ro-sub-app-cf.cfapps.eu10.hana.ondemand.com"
+
+  - name: rouibackend
+    type: nodejs
+    path: rouibackend
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    provides:
+      - name: robackend_api
+        properties:
+          backend_app_url: '${default-url}'
+    requires:
+      - name: uaa_roapp
+    properties:
+      SAP_JWT_TRUST_ACL:
+       - clientid: "*"
+         identityzone: "*"
+  - name: roapprouter
+    type: nodejs
+    path: roapprouter
+    provides:
+       - name: roapprouter_api
+         properties:
+            disk-quota: 256M
+            memory: 256M
+         requires:
+           - name: uaa_roapp
+           - name: robackend_api
+             group: destinations
+             properties:
+                name: robackend_api
+                url: '~{beurl}'
+                forwardAuthToken: true
+         properties:
+             TENANT_HOST_PATTERN: "^(.*)-ro-sub-app-cf.cfapps.eu10.hana.ondemand.com"
+             
+resources:
+  - name: uaa_roapp
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+      shared: true
+    type: org.cloudfoundry.managed-service
