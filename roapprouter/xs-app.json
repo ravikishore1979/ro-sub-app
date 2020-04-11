@@ -1,6 +1,6 @@
 {
 	"routes": [{
-		"source": "/",
+		"source": "/robe",
 		"target": "/",
 		"destination": "robackend_api"
 	}]

@@ -17,7 +17,7 @@ modules:
         group: destinations
         properties:
           name: robackend_api
-          url: '~{backend_app_url}'
+          url: '~{beurl}'
           forwardAuthToken: true
     properties:
       TENANT_HOST_PATTERN: "^(.*)-ro-sub-app-cf.cfapps.eu10.hana.ondemand.com"
@@ -31,31 +31,34 @@ modules:
     provides:
       - name: robackend_api
         properties:
-          backend_app_url: '${default-url}'
+            beurl: '${default-url}'
     requires:
       - name: uaa_roapp
     properties:
-      SAP_JWT_TRUST_ACL:
-       - clientid: "*"
-         identityzone: "*"
+        SAP_JWT_TRUST_ACL:
+           - clientid: "*"
+             identityzone: "*"
+             
   - name: roapprouter
     type: nodejs
     path: roapprouter
     provides:
        - name: roapprouter_api
          properties:
-            disk-quota: 256M
-            memory: 256M
-         requires:
-           - name: uaa_roapp
-           - name: robackend_api
-             group: destinations
-             properties:
-                name: robackend_api
-                url: '~{beurl}'
-                forwardAuthToken: true
+            url: ${default-url}
+    parameters:
+        disk-quota: 256M
+        memory: 256M
+    requires:
+       - name: uaa_roapp
+       - name: robackend_api
+         group: destinations
          properties:
-             TENANT_HOST_PATTERN: "^(.*)-ro-sub-app-cf.cfapps.eu10.hana.ondemand.com"
+            name: robackend_api
+            url: '~{beurl}'
+            forwardAuthToken: true
+    properties:
+        TENANT_HOST_PATTERN: "^(.*)-ro-sub-app-cf.cfapps.eu10.hana.ondemand.com"
              
 resources:
   - name: uaa_roapp
